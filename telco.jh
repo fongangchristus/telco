@@ -1,0 +1,185 @@
+
+entity Site {
+	antheigth Double,
+    bsc String,
+    codeSite String,
+    constructeur String 
+    hsn String,
+    lac String,
+    latitude Double,
+    longitude Double,
+    nom String,
+    rac String,
+    typeAntenne String,
+}
+entity Filiale {
+	nom String,
+    description String
+}
+
+
+entity LieuUtile {
+	latitude Double,
+    description String,
+    libele String,
+    telephone String,
+    telephone2 String,
+    type String
+}
+
+entity Activite {
+	libele String,
+    description String,
+    prixtttc Double,
+    prixUnit Double,
+    quantite Double,
+    tva Double,
+    unit String
+}
+
+entity Projet {
+	libele String,
+    description String
+}
+
+entity Wo {
+	libele String,
+    description String,
+    reference String,
+    responsableTravaux String,
+    prixttc Double,
+  	prixhtc Double,
+    scope String,
+    startDate ZonedDateTime,
+    status Boolean,
+    tva Double,
+    woFile String,
+    version String
+}
+entity Po {
+	libele String,
+    description String,
+    reference String,
+    prixttc Double,
+    prixhtc Double,
+    scope String,
+    startDate ZonedDateTime,
+    status Boolean,
+    tva Double,
+    poFile String,
+    unit String
+}
+
+entity TermOfPayement {
+	deliveryDate String,
+    descrip String,
+    note String,
+    terme String
+}
+
+entity Lpo {
+	libele String,
+    description String,
+    reference String,
+    responsableTravaux String,
+    prixttc Double,
+  	prixhtc Double,
+    scope String,
+    startDate ZonedDateTime,
+    status Boolean,
+    tva Double,
+    lpoFile String,
+    scopeDateLine String,
+    version String
+}
+
+entity ProjectPlan {
+	reference String,
+    pickupDate String,
+    amountSbc Double,
+   	ctoAprouve Boolean,
+    mdAprouve Boolean ,
+    pmAprouve Boolean,
+    allocationDate ZonedDateTime,
+    purcentSbc Double
+}
+
+entity AppUser {
+	username String,
+    password String
+}
+entity AppRole {
+	rolename String, 
+    description String,
+}
+entity Team {
+	nom String,
+    description String,
+}
+
+entity Personne {
+	profilFile String,
+    nom String,
+    prenom String,
+    cni String,
+    coordBancaire String,
+    dateNais ZonedDateTime,
+    nationalite String,
+    numeroVisa String,
+    dateExpVisa String,
+    etatCivil String,
+    enMission Boolean,
+    teamLeader Boolean,
+    responsable Boolean
+}
+ entity StatutEmploye {
+ 	libele String,
+    description String
+ }
+ entity EtatLpo {
+ 	libele String,
+    valeur String,
+    description String
+ }
+ entity EtatPo {
+ 	libele String,
+    valeur String,
+    description String
+ }
+ entity EtatWo {
+ 	libele String,
+    valeur String,
+    description String
+ }
+
+entity Employe {
+    
+}
+
+relationship ManyToOne {
+    Wo {client} to Client,
+    ProjectPlan {projetPlan} to Team,
+    Employe {statut} to StatutEmploye,
+    ProjectPlan {subco} to Subco,
+    Wo {etatWo} to  EtatWo{wo},
+    Po {etatPo} to EtatPo{po},
+    Lpo {etatLpo} to EtatLpo{po},
+    Wo {po}  to Po{wo} ,
+    Wo {projet} to Projet{wo},
+    Po {projet} to Projet{po}
+}  
+relationship ManyToMany{
+	Wo {site} to Site{wo}
+} 
+relationship OneToOne {
+    ProjectPlan {wo} to Wo,
+    ProjectPlan {lpo} to Lpo,
+    Employe{appUser} to AppUser
+}
+relationship OneToMany {
+	Wo{activite} to Activite,
+    AppUser{appRole} to AppRole,
+    Team{employe} to Employe,
+    Site {lieuUtile} to LieuUtile
+}
+                                                                                                                                                                                                                                                                                                                          
